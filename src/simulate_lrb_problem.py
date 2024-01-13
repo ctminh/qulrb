@@ -4,160 +4,181 @@ import math
 
 import numpy as np
 
-# init a set of tasks
-T = [15.506, 15.506, 15.506, 38.136, 38.136, 38.136, 66.734, 66.734, 66.734, 67.376, 67.376, 67.376]
+# --------------------------------------------------------
+# Task and load configuration
+# --------------------------------------------------------
+NUM_PROCS = 4
+NUM_TASKS_PER_PROC = 3
+TASK_MIGRATION_DELAY = 4 # in ms
+LOAD_PER_TASK_PER_PROC = [15.506, 38.136, 66.734, 67.376] # in ms per task per process
 
-# a given distribution of tasks on 4 processes
-num_procs = 4
-num_tasks_per_proc = int(len(T)/num_procs)
-P = []
-for i in range (num_procs):
-    sub_P = []
-    for t in range(num_tasks_per_proc):
-        sub_P.append(T[i*num_tasks_per_proc + t])
-    P.append(sub_P)
-print('A given distribution of tasks on {:2d} processes: '.format(num_procs))
-print(P)
-print('----------------------------------------\n')
-
-# some statistic information
-L = []
-for i in range(num_procs):
-    L.append(np.sum(P[i]))
-
-L_avg = np.average(L)
-P_underload = []
-P_overload  = []
-L_underload = []
-L_overload  = []
-
-for i in range(num_procs):
-    if L[i] > L_avg:
-        L_overload.append(L[i] - L_avg)
-        P_overload.append(i)
-    else:
-        L_underload.append(L_avg - L[i])
-        P_underload.append(i)
-
-print('Average load: {:.3f}'.format(L_avg))
-print('Processes underloaded: {} | L_underload={} | Sum={}'.format(P_underload, L_underload, np.sum(L_underload)))
-print('Processes overloaded:  {} | L_overload ={} | Sum={}'.format(P_overload, L_overload, np.sum(L_overload)))
-print('----------------------------------------\n')
-
-# -----------------------------------------------------
+# --------------------------------------------------------
 # Util functions
-# -----------------------------------------------------
+# --------------------------------------------------------
+def given_task_distribution(num_procs, num_tasks_per_proc, load_per_task_arr):
+    arr_given_tasks = []
+    for i in range(num_procs):
+        for j in range(num_tasks_per_proc):
+            arr_given_tasks.append(load_per_task_arr[i])
+    return arr_given_tasks
 
-def update_underload(L_underload, P_underload, val, proc):
-    if proc in P_underload:
-        pidx = P_underload.index(proc)
-        L_underload[pidx] = val
-    elif proc in P_overload: # remove this process
-        pidx = P_overload.index(proc)
-        del L_overload[pidx]
-        P_overload.remove(proc)
+def statistics_summary(arr_tasks, num_procs, num_tasks_per_proc):
+    load_arr = []
+    for i in range(num_procs):
+        sum_load = 0.0
+        for j in range(num_tasks_per_proc):
+            sum_load += arr_tasks[i*(num_procs-1) + j]
+        load_arr.append(sum_load)
 
-def update_overload(L_overload, P_overload, val, proc):
-    if proc in P_overload:
-        pidx = P_overload.index(proc)
-        L_overload[pidx] = val
-    elif proc in P_underload: # remove this process
-        pidx = P_underload.index(proc)
-        del L_underload[pidx]
-        P_underload.remove(proc)
-
-def update_load(P_arr, L_arr, L_overload, L_underload):
-    num_processes = len(P_arr)
-    for i in range(num_processes):
-        num_tasks = len(P_arr[i])
-        sum_cur_load = np.sum(P_arr[i])
-        L_arr[i] = sum_cur_load
+    max_load = np.max(load_arr)
+    min_load = np.min(load_arr)
+    avg_load = np.average(load_arr)
+    print('-------------------------------------------')
+    print('Total load per process: {}'.format(load_arr))
+    print('   + Max: {}'.format(max_load))
+    print('   + Min: {}'.format(min_load))
+    print('   + Avg: {}'.format(avg_load))
+    print('   + Imb: {}'.format(max_load/avg_load - 1))
+    print('-------------------------------------------\n')
     
-    # calculate avg load
-    Lavg = np.average(L_arr)
+    return load_arr
 
-    # TODO: update load overloaded and underloaded
-    for i in range(num_procs):
-        if L[i] > L_avg:
-            overload_val = L[i] - L_avg
-            update_overload(L_overload, P_overload, overload_val, i)
-            
-        elif L[i] < L_avg:
-            underload_val = L_avg - L[i]
-            update_underload(L_underload, P_underload, underload_val, i)
-        else:
-            if i in P_underload:
-                process_idx = P_underload.index(i)
-                P_underload.remove(i)
-                del L_underload[process_idx]
+# --------------------------------------------------------
+# Load rebalancing function
+# --------------------------------------------------------
+def proact_task_rebalancing(arr_local_load, arr_remote_load, arr_num_local_tasks, arr_num_remote_tasks):
+    
+    # check total load info and sort proc ids
+    arr_total_load = []
+    for i in range(NUM_PROCS):
+        arr_total_load.append(arr_local_load[i]+arr_remote_load[i])
+    Lmax = np.max(arr_total_load)
+    Lavg = np.average(arr_total_load)
+
+    sorted_proc_ids = np.argsort(arr_total_load)
+    print('-------------------------------------------')
+    print('Total load array: {}'.format(arr_local_load))
+    print('Sorted process indices: {}'.format(sorted_proc_ids))
+    print('-------------------------------------------\n')
+
+    # create a tracking table for local and remote tasks
+    table_locrem_tasks = []
+    for i in range(NUM_PROCS):
+        table_locrem_tasks.append([])
+        for j in range(NUM_PROCS):
+            if i == j:
+                table_locrem_tasks[i].append(arr_num_local_tasks[j])
             else:
-                process_idx = P_overload.index(i)
-                P_overload.remove(i)
-                del L_overload[process_idx]
+                table_locrem_tasks[i].append(0)
+    print('Local-remote-tasks tracking table:')
+    print(table_locrem_tasks)
+    print('-------------------------------------------\n')
 
-    return Lavg
+    # main loop for the algorithm
+    print('-------------------------------------------')
+    print('Rebalancing the load: ')
 
-def obj_func(L, L_avg):
-    num_procs = len(L)
-    obj_val = 0
-    for i in range(num_procs):
-        obj_val += (L[i] - L_avg)**2
+    for i in range(NUM_PROCS):
 
-    return obj_val
+        # get the most underloaded process | left to right
+        victim = sorted_proc_ids[i]
+        victim_load = arr_total_load[victim]
 
-# -----------------------------------------------------
-# Rebalancing Algorithm 1: greedy
-# -----------------------------------------------------
-penalty_migration_cost = 0
-objective_function = 0
+        # if the victim load < average
+        if victim_load < Lavg:
 
-for i in P_overload:
+            underloaded_val = Lavg - victim_load
 
-    for j in P_underload:
+            print('-------------------------------------------')
+            print("Checking the underloaded P{}: underloaded_val={:.3f}".format(victim, underloaded_val))
+            print('-------------------------------------------')
 
-        n_tasks_can_migrate = 0
-        n_tasks_can_receive = 0
+            # checking the most overloaded process
+            for j in range(NUM_PROCS-1, 0, -1):
 
-        if len(L_overload) > 0 and len(L_underload) > 0:
-            idx_P_over  = P_overload.index(i)
-            idx_P_under = P_underload.index(j)
-            n_tasks_can_migrate = math.ceil(L_overload[idx_P_over]  / P[i][0])
-            n_tasks_can_receive = math.ceil(L_underload[idx_P_under] / P[j][0])
+                offloader = sorted_proc_ids[j]
+                offloader_load = arr_total_load[offloader]
+                overloaded_val = offloader_load - Lavg
 
-        print('[P{}/P{}] n_tasks availabel to migrate {}, to receive {}'.format(i, j, 
-                n_tasks_can_migrate, n_tasks_can_receive))
-        
-        # check the remaining tasks
-        n_tasks_rem_in_Poverload = len(P[i])
-        
-        # decide migrating tasks
-        if n_tasks_can_migrate > 0 and n_tasks_can_receive > 0 and n_tasks_rem_in_Poverload > 2:
-            
-            numtask2migrate = min(n_tasks_can_migrate, n_tasks_can_receive)
-            cost2migrate = numtask2migrate * 8.725 # temp. set 25 ms for migrating a task at a time
+                print("---> Checking the overloaded P{}: overloaded_val={:.3f}".format(j, overloaded_val))
 
-            # update migration cost
-            penalty_migration_cost += cost2migrate
+                if offloader_load > Lavg and overloaded_val >= LOAD_PER_TASK_PER_PROC[offloader]/2:
+                    print('      + Process P{} is overloaded'.format(offloader))
+                    
+                    # check num tasks for migration
+                    numtasks_can_migrate = 0
+                    migrated_load = 0.0
+                    if overloaded_val >= underloaded_val:
+                        numtasks_can_migrate =  round(underloaded_val / LOAD_PER_TASK_PER_PROC[offloader])
+                        migrated_load = numtasks_can_migrate * LOAD_PER_TASK_PER_PROC[offloader]
+                    else:
+                        numtasks_can_migrate = round(overloaded_val / LOAD_PER_TASK_PER_PROC[offloader])
+                        migrated_load = numtasks_can_migrate * LOAD_PER_TASK_PER_PROC[offloader]
+                    
+                    print('      + Process P{} migrate {} task(s) to P{}, migrated_load={}'.format(offloader,
+                                                                numtasks_can_migrate, victim, migrated_load))
+                    
+                    # update underloaded value, and local load of offloader, remote load of victim
+                    underloaded_val = underloaded_val - migrated_load
+                    arr_local_load[offloader] -= migrated_load
+                    arr_remote_load[victim] += migrated_load
+                    print('      + New underloaded value at P{}: {}'.format(victim, underloaded_val))
+                    
+                    # update the number of tasks inc. local tasks for offloader, remote tasks for victim
+                    arr_num_local_tasks[offloader] -= numtasks_can_migrate
+                    arr_num_remote_tasks[victim] += numtasks_can_migrate
+                    print('      -----------------------')
+                    print('      + Updated local load at victim P{}: {}'.format(victim, arr_local_load[victim]))
+                    print('      + Updated remote load at victim P{}: {}'.format(victim, arr_remote_load[victim]))
+                    print('      + Updated local load at offloader P{}: {}'.format(offloader, arr_local_load[offloader]))
+                    print('      + Updated remote load at offloader P{}: {}'.format(offloader, arr_remote_load[offloader]))
+                    print('      -----------------------')
 
-            # move tasks around
-            for t in range(numtask2migrate):
-                task_from_Poverload = P[i].pop()
-                # insert this task to Punderload
-                P[j].append(task_from_Poverload)
-                print('   moved a task from P{} to P{}'.format(i, j))
-                print('   current tasks in P{}: {}'.format(i, P[i]))
-                print('                 in P{}: {}'.format(j, P[j]))
+                    # update the total load value of both offloader and victim
+                    arr_total_load[offloader] = arr_local_load[offloader] + arr_remote_load[offloader]
+                    arr_total_load[victim] = arr_local_load[victim] + arr_remote_load[victim]
+                    print('      + Updated total load at victim P{}: {}'.format(victim, arr_total_load[victim]))
+                    print('      + Updated total load at offloader P{}: {}'.format(offloader, arr_total_load[offloader]))
+                    print('      -----------------------')
 
-        # update the load
-        L_avg = update_load(P, L, L_overload, L_underload)
-        print('-------------------------------')
-        print('   + Load array: {}'.format(L))
-        print('   + Penalty migration cost: {}'.format(penalty_migration_cost))
-        print('   + Objective function: sum(L[i]-Lavg)^2 = {:.2f}'.format(obj_func(L, L_avg)))
-        print('   + P_underloaded: {} | L_underload={} | Sum={}'.format(P_underload, L_underload, np.sum(L_underload)))
-        print('   + P_overloaded:  {} | L_overload ={} | Sum={}'.format(P_overload, L_overload, np.sum(L_overload)))
-        print('-------------------------------')
+                    # update the tracking table
+                    table_locrem_tasks[offloader][offloader] -= numtasks_can_migrate
+                    table_locrem_tasks[offloader][victim] += numtasks_can_migrate
+                    print('      + Updated tracking table: {}'.format(table_locrem_tasks))
+                    print('      -----------------------')
 
-# -----------------------------------------------------
-# Rebalancing Algorithm 1: sorted-base greedy
-# -----------------------------------------------------
+                    # stop condition
+                    abs_value = abs(arr_total_load[victim] - Lavg)
+                    print('      + Abs(victim load P{} - Lavg) = {}'.format(victim, abs_value))
+
+                    if abs_value < LOAD_PER_TASK_PER_PROC[offloader]:
+                        break
+
+    return table_locrem_tasks
+
+
+# --------------------------------------------------------
+# Main function
+# --------------------------------------------------------
+
+if __name__ == "__main__":
+
+    # init an array of given tasks
+    ARRAY_TASKS = given_task_distribution(NUM_PROCS, NUM_TASKS_PER_PROC, LOAD_PER_TASK_PER_PROC)
+    print('Array of given tasks:')
+    print(ARRAY_TASKS)
+    print('-------------------------------------------\n')
+
+    # show load information
+    ARRAY_LOCAL_LOAD = statistics_summary(ARRAY_TASKS, NUM_PROCS, NUM_TASKS_PER_PROC)
+
+    # load rebalancing algorithm
+    ARRAY_REMOTE_LOAD = []
+    ARRAY_NUM_LOCAL_TASKS = []
+    ARRAY_NUM_REMOTE_TASKS = []
+    for i in range(NUM_PROCS):
+        ARRAY_REMOTE_LOAD.append(0.0)
+        ARRAY_NUM_LOCAL_TASKS.append(NUM_TASKS_PER_PROC)
+        ARRAY_NUM_REMOTE_TASKS.append(0)
+
+    proact_task_rebalancing(ARRAY_LOCAL_LOAD, ARRAY_REMOTE_LOAD, ARRAY_NUM_LOCAL_TASKS, ARRAY_NUM_REMOTE_TASKS)
