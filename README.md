@@ -2,25 +2,36 @@
 
 Load rebalancing problem and quantum approximate optimization approach
 
-### Rebalancing Problem
+### Load Rebalancing Problem
 
-* Formulation by Aggarwal et al. [SPAA-06]
+* Formulation by Aggarwal et al. [SPAA-03]
     + Given $n$ jobs with the following sizes $\{s_{1}, s_{2}, ..., s_{n}\}$
     + Assigned on $m$ processors $\{P_{1}, P_{2}, ..., P_{m}\}$
     + Problem: relocating jobs among the processors to minimize the makespan, where
-        - $makespan$: the completion time of all processors
+        - $makespan$: the completion time
         - relocating cost: $c_{ij}$ when moving a job from processor $i$ to processor $j$
 
-* Re-formulating and mapping the problem to load rebalancing for task-based parallel applications in HPC
-    + Given $n$ similar tasks in total, with the following execution time (load) $\{t_{0}, t_{1}, ..., t_{n-1}\}$
+    [SPAA-03] Gagan Aggarwal, Rajeev Motwani, and An Zhu. 2003. The load rebalancing problem. In Proceedings of the fifteenth annual ACM symposium on Parallel algorithms and architectures (SPAA '03). Association for Computing Machinery, New York, NY, USA, 258–265, https://doi.org/10.1145/777412.777460.
+
+![Example 1](./docs/problem_formulation.png)
+
+* Re-formulating and mapping the load rebalancing problem in a context of task-based parallel applications in HPC
+    + A given distribution of $n$ tasks on $m$ processes, where each process might be pinned to a CPU/processor.
+    
+    + If the execution happens expected, load per task is the same, and the total load among processes is balanced like the left figure shows.
+
+    + If the execution happens unexpected (e.g., wrong performance model for task distribution before the execution), load per tasks per process might be different. The total load among processes is unbalanced like the right figure shows.
+    
+<!--     
     + Assigned on $m$ processes (processors) $\{P_{0}, P_{1}, ..., P_{m-1}\}$
+
     + Problem: load imbalance among processes due to performance slowdown, need to relocate tasks or migrate tasks, where we also aim to minimize makespan,
         - $makespan$: the completion time of all processes
         - migration cost: $c_{ij}$ when moving a task from process $i$ to process $j$
 
 * Example: $20$ tasks in total, assigned to $4$ processes, the load values are illustrated as follows.
 
-![Example 1](./docs/rebalancing_formulation.png)
+
 
 ### A try for QUBO formulation
 
@@ -52,5 +63,5 @@ Load rebalancing problem and quantum approximate optimization approach
     ![Onehot bitstring](./docs/onehot_bitstring.png)
 
 * Migrating or no migrating tasks
-    
+     -->
 
