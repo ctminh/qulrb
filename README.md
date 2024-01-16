@@ -17,11 +17,24 @@ Load rebalancing problem and quantum approximate optimization approach
 
 * Re-formulating and mapping the load rebalancing problem in a context of task-based parallel applications in HPC
     + A given distribution of $n$ tasks on $m$ processes, where each process might be pinned to a CPU/processor.
-    
-    + If the execution happens expected, load per task is the same, and the total load among processes is balanced like the left figure shows.
+    + If the execution happens expectedly, load per task is the same, and the total load among processes is balanced like the left figure shows.
+    + If the execution happens unexpectedly (e.g., wrong performance model for task distribution before the execution), load per tasks per process might be different. The total load among processes is unbalanced like the right figure shows.
 
-    + If the execution happens unexpected (e.g., wrong performance model for task distribution before the execution), load per tasks per process might be different. The total load among processes is unbalanced like the right figure shows.
+### Objective
+
+* Migrate tasks to balance the load
+* How many tasks should be migrated? From which process to which process?
+
+### Approaches
+
+* Dynamic:
+    + Task stealing (work stealing) without prior knowledge about load values/the lenght of tasks
+    + Reactive task offloading without prior knowledge about load values/the lenght of tasks
+
+* Hybrid: works in the case, load imbalance or the performance model of tasks can be predicted before a new execution starts.
     
+
+
 <!--     
     + Assigned on $m$ processes (processors) $\{P_{0}, P_{1}, ..., P_{m-1}\}$
 
