@@ -7,10 +7,10 @@ import numpy as np
 # --------------------------------------------------------
 # Task and load configuration
 # --------------------------------------------------------
-NUM_PROCS = 4
-NUM_TASKS_PER_PROC = 3
+NUM_PROCS = 8
+NUM_TASKS_PER_PROC = 10
 TASK_MIGRATION_DELAY = 4 # in ms
-LOAD_PER_TASK_PER_PROC = [15.506, 38.136, 66.734, 67.376] # in ms per task per process
+LOAD_PER_TASK_PER_PROC = [15.506, 38.136, 66.734, 67.376, 38.305, 15.768, 8.134, 8.141] # in ms per task per process
 
 # --------------------------------------------------------
 # Util functions
@@ -154,6 +154,12 @@ def proact_task_rebalancing(arr_local_load, arr_remote_load, arr_num_local_tasks
                     if abs_value < LOAD_PER_TASK_PER_PROC[offloader]:
                         break
 
+    print('-------------------------------------------')
+    print('Total load after rebalancing: ')
+    for i in range(NUM_PROCS):
+        print('  + P{}: {:.4f}ms | Local load: {:7.3f}, Remote load: {:7.3f}'.format(i, arr_total_load[i], arr_local_load[i], arr_remote_load[i]))
+    print('-------------------------------------------\n')
+
     return table_locrem_tasks
 
 
@@ -181,4 +187,11 @@ if __name__ == "__main__":
         ARRAY_NUM_LOCAL_TASKS.append(NUM_TASKS_PER_PROC)
         ARRAY_NUM_REMOTE_TASKS.append(0)
 
-    proact_task_rebalancing(ARRAY_LOCAL_LOAD, ARRAY_REMOTE_LOAD, ARRAY_NUM_LOCAL_TASKS, ARRAY_NUM_REMOTE_TASKS)
+    table_task_migration = proact_task_rebalancing(ARRAY_LOCAL_LOAD, ARRAY_REMOTE_LOAD, ARRAY_NUM_LOCAL_TASKS, ARRAY_NUM_REMOTE_TASKS)
+    print('-------------------------------------------')
+    print('Guide task migration: ')
+    for i in range(NUM_PROCS):
+        for j in range(NUM_PROCS):
+            if  i != j and table_task_migration[i][j] > 0:
+                print('  + P{}: migrates {} tasks to P{}'.format(i, table_task_migration[i][j], j))
+    print('-------------------------------------------\n')
