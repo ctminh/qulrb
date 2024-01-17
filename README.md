@@ -13,7 +13,9 @@ Load rebalancing problem and quantum approximate optimization approach
 
     [SPAA-03] Gagan Aggarwal, Rajeev Motwani, and An Zhu. 2003. The load rebalancing problem. In Proceedings of the fifteenth annual ACM symposium on Parallel algorithms and architectures (SPAA '03). Association for Computing Machinery, New York, NY, USA, 258–265, https://doi.org/10.1145/777412.777460.
 
-![Example 1](./docs/problem_formulation.png)
+![Figure 1](./docs/problem_formulation.png)
+
+*Figure 1. Problem formulation.*
 
 * Re-formulating and mapping the load rebalancing problem in a context of task-based parallel applications in HPC
     + A given distribution of $n$ tasks on $m$ processes, where each process might be pinned to a CPU/processor.
@@ -27,12 +29,28 @@ Load rebalancing problem and quantum approximate optimization approach
 
 ### Approaches
 
-* Dynamic:
-    + Task stealing (work stealing) without prior knowledge about load values/the lenght of tasks
-    + Reactive task offloading without prior knowledge about load values/the lenght of tasks
+![Figure 2](./docs/task_stealing_vs_task_offloading.png)
 
-* Hybrid: works in the case, load imbalance or the performance model of tasks can be predicted before a new execution starts.
-    
+*Figure 2. Task stealing and task offloading approach.*
+
+* Dynamic:
+    + Task stealing (work stealing) without prior knowledge about load values/the length of tasks. During execution, when the queue of a process is empty, it starts asking to steal the tasks from the other processes, as shown in Figure 2 (A).
+    + Reactive task offloading without prior knowledge about load values/the length of tasks. During execution, each process dedicates a thread for checking queue status continuously and offloading tasks reactively if it detects load imbalance based on the queue status at a time, as shown in Figure 2 (B).
+
+![Figure 3](./docs/hybrid_load_rebalancing.png)
+
+*Figure 3. A hybrid approach with prior knowledge based on load predicted values at runtime.*
+
+* Hybrid: works in the case, the load imbalance or the performance model of tasks can be predicted before a new execution phase starts.
+    + First, assume we have predicted load values before a new execution starts. For example, as Figure 3 shows, $P_{0}$ has 5 tasks, each takes $15ms$; $P_{1}$ has 5 tasks, each takes $38ms$ and so on.
+    + Second, apply a solver/algorithm to find the solution: how many tasks should be migrated? from which process to which process?
+    + Third, the delay of task migration might be taken into account, even task migration can start early.
+
+### Motivation
+
+* From the view of optimization, load rebalancing problem can be considered as an optimization problem [SPAA-03].
+
+* Compared to the classical algorithms, how this problem can be formulated and solved in quantum computing?
 
 
 <!--     
