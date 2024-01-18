@@ -70,6 +70,7 @@ def proact_task_rebalancing(arr_local_load, arr_remote_load, arr_num_local_tasks
                 table_locrem_tasks[i].append(arr_num_local_tasks[j])
             else:
                 table_locrem_tasks[i].append(0)
+                
     print('Local-remote-tasks tracking table:')
     print(table_locrem_tasks)
     print('-------------------------------------------\n')
