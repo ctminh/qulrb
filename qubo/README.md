@@ -1,11 +1,56 @@
 ## QUBO Formulations
 
-Some ideas for QUBO formulations from Justyna, 
+Some ideas for QUBO formulations from Justyna.
 
-### Formulating as a linear equation 
+An example comes from the profiled data of executing Sam$(oa)^{2}$, which is an HPC simulation framework for oceanic problems, such as tsunami, oscillating lake. The logfile shows:
 
+* Number of processes: $8$
+* Number of tasks per process: $208$, where this value depends on the scale of simulation scenarios we want to configure. This refers to https://github.com/meistero/Samoa.
+* The length of tasks (task execution time) is collected from the logfile after 100 simulation iterations, as follows:
+    + Process $P_{0}$: $[15.5, 15.5, ..., 15.5]$
+    + Process $P_{1}$: $[38.1, 38.1, ..., 38.1]$
+    + $...$
+    + Process $P_{7}$: $[8.1, 8.1, ..., 8.1]$
 
-### Formulation as one-hot task assignment
+To be simple, the example with the QUBO formulations below is shown with only $4$ processes from $P_{0}$ to $P_{3}$, and so on with their corresponding task length values.
+
+### Formulating as a linear equation
+
+Based on the way of calculating the total load values by the number of tasks and the task lengths, we can formulate as a linear equation
+$$
+    a_{0} \times y_{0} + b_{0} \times y_{1} + c_{0} \times y_{2} + d_{0} \times y_{3} = L_{0} \\
+    a_{1} \times y_{0} + b_{1} \times y_{1} + c_{1} \times y_{2} + d_{1} \times y_{3} = L_{1} \\
+    a_{2} \times y_{0} + b_{2} \times y_{1} + c_{2} \times y_{2} + d_{2} \times y_{3} = L_{2} \\
+    a_{3} \times y_{0} + b_{3} \times y_{1} + c_{3} \times y_{2} + d_{3} \times y_{3} = L_{3}
+$$
+
+Where, $[y_{0}, y_{1}, y_{2}, y_{3}]$ correspond to the length of tasks on each process $[15.5, 38.1, 66.7, 67.4]$; the coeeficients $[a_{0}, a_{1}, a_{2}, a_{3}]$ are associated with the total number of tasks of $P_{0}$ as a given distribution before running. In the case, tasks are migrated around to balance the load, then $b_{0}, c_{0}, ... $ shown in the first row are used to indicate the migrated tasks from the others to $P_{0}$. Following that, $L_{0}$ denotes the total load of $P_{0}$ at the end. The linear equations for $P_{1}$, $P_{2}$, $P_{3}$ are similarly.
+
+According to the example with $4$ processes, $208$ tasks per process, we can propose the following constraints:
+* For coefficients $a$, $b$, $c$, $d$:
+$$
+    a_{0} + a_{1} + a_{2} + a_{3} = 208 \\
+    b_{0} + b_{1} + b_{2} + b_{3} = 208 \\
+    c_{0} + c_{1} + c_{2} + c_{3} = 208 \\
+    d_{0} + d_{1} + d_{2} + d_{3} = 208 \\
+$$
+
+* For the objective function:
+$$
+    F_{obj} = (L_{0} - avg)^2 + (L_{1} - avg)^2 + (L_{2} - avg)^2 + (L_{3} - avg)^2
+$$
+Where, the value of $F_{obj}$ closed to $0$ is ideally.
+
+* To transform $a_{0}, a_{1}, ..., d_{3}$ as the binary variables, we can address them as follows:
+    $$
+        a_{0} = 2^0 \times x_{0} + 2^1 \times x_{1} + 2^2 \times x_{2} + 2^3 \times x_{3} + 2^4 \times x_{4} + 2^5 \times x_{5} + 2^6 \times x_{6} + \alpha \times x_{7} \\
+        = x_{0} + 2 \times x_{1} + 4 \times x_{2} + 8 \times x_{3} + 16 \times x_{4} + 32 \times x_{5} + 64 \times x_{6} + \alpha \times x_{7}
+    $$
+
+    + Use 8 bits to represent the value of $a_{0}$
+    + In this example, the number of tasks per process is 208, therefore, the last variable $x_7$ can be multiplied with $\alpha = 81$
+
+### Formulation as task assignment with one-hot encoding
 
 
 
