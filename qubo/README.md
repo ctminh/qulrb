@@ -47,10 +47,10 @@ According to the example with $4$ processes, $208$ tasks per process, we can pro
 
     $a_{0} = 2^0 \times x_{0} + 2^1 \times x_{1} + 2^2 \times x_{2} + 2^3 \times x_{3} + 2^4 \times x_{4} + 2^5 \times x_{5} + 2^6 \times x_{6} + \alpha \times x_{7}$
 
-    $ = x_{0} + 2 \times x_{1} + 4 \times x_{2} + 8 \times x_{3} + 16 \times x_{4} + 32 \times x_{5} + 64 \times x_{6} + \alpha \times x_{7}$
+    $\rightarrow$ $x_{0} + 2 \times x_{1} + 4 \times x_{2} + 8 \times x_{3} + 16 \times x_{4} + 32 \times x_{5} + 64 \times x_{6} + \alpha \times x_{7}$
 
     + Use 8 bits to represent the value of $a_{0}$
-    
+
     + In this example, the number of tasks per process is 208, therefore, the last variable $x_7$ can be multiplied with $\alpha = 81$
 
 ### Formulation as task assignment with one-hot encoding
