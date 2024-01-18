@@ -54,15 +54,6 @@ Load rebalancing problem and quantum approximate optimization approach
 
 
 <!--     
-    + Assigned on $m$ processes (processors) $\{P_{0}, P_{1}, ..., P_{m-1}\}$
-
-    + Problem: load imbalance among processes due to performance slowdown, need to relocate tasks or migrate tasks, where we also aim to minimize makespan,
-        - $makespan$: the completion time of all processes
-        - migration cost: $c_{ij}$ when moving a task from process $i$ to process $j$
-
-* Example: $20$ tasks in total, assigned to $4$ processes, the load values are illustrated as follows.
-
-
 
 ### A try for QUBO formulation
 
