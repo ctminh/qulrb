@@ -17,12 +17,14 @@ To be simple, the example with the QUBO formulations below is shown with only $4
 ### Formulating as a linear equation
 
 Based on the way of calculating the total load values by the number of tasks and the task lengths, we can formulate as a linear equation
-$$
-    a_{0} \times y_{0} + b_{0} \times y_{1} + c_{0} \times y_{2} + d_{0} \times y_{3} = L_{0} \\
-    a_{1} \times y_{0} + b_{1} \times y_{1} + c_{1} \times y_{2} + d_{1} \times y_{3} = L_{1} \\
-    a_{2} \times y_{0} + b_{2} \times y_{1} + c_{2} \times y_{2} + d_{2} \times y_{3} = L_{2} \\
-    a_{3} \times y_{0} + b_{3} \times y_{1} + c_{3} \times y_{2} + d_{3} \times y_{3} = L_{3}
-$$
+    
+$a_{0} \times y_{0} + b_{0} \times y_{1} + c_{0} \times y_{2} + d_{0} \times y_{3} = L_{0}$
+
+$a_{1} \times y_{0} + b_{1} \times y_{1} + c_{1} \times y_{2} + d_{1} \times y_{3} = L_{1}$
+
+$a_{2} \times y_{0} + b_{2} \times y_{1} + c_{2} \times y_{2} + d_{2} \times y_{3} = L_{2}$
+    
+$a_{3} \times y_{0} + b_{3} \times y_{1} + c_{3} \times y_{2} + d_{3} \times y_{3} = L_{3}$
 
 Where, $[y_{0}, y_{1}, y_{2}, y_{3}]$ correspond to the length of tasks on each process $[15.5, 38.1, 66.7, 67.4]$; the coeeficients $[a_{0}, a_{1}, a_{2}, a_{3}]$ are associated with the total number of tasks of $P_{0}$ as a given distribution before running. In the case, tasks are migrated around to balance the load, then $b_{0}, c_{0}, ... $ shown in the first row are used to indicate the migrated tasks from the others to $P_{0}$. Following that, $L_{0}$ denotes the total load of $P_{0}$ at the end. The linear equations for $P_{1}$, $P_{2}$, $P_{3}$ are similarly.
 
