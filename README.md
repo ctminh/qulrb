@@ -13,23 +13,23 @@ Load rebalancing problem and quantum approximate optimization approach
 
     [SPAA-03] Gagan Aggarwal, Rajeev Motwani, and An Zhu. 2003. The load rebalancing problem. In Proceedings of the fifteenth annual ACM symposium on Parallel algorithms and architectures (SPAA '03). Association for Computing Machinery, New York, NY, USA, 258–265, https://doi.org/10.1145/777412.777460.
 
-![Figure 1](./docs/problem_formulation.png)
+![Figure 1](./docs/figures/problem_formulation.png)
 
 *Figure 1. Problem formulation.*
 
 * Re-formulating and mapping the load rebalancing problem in a context of task-based parallel applications in HPC
-    + A given distribution of $n$ tasks on $m$ processes, where each process might be pinned to a CPU/processor.
-    + If the execution happens expectedly, load per task is the same, and the total load among processes is balanced like the left figure shows.
-    + If the execution happens unexpectedly (e.g., wrong performance model for task distribution before the execution), load per tasks per process might be different. The total load among processes is unbalanced like the right figure shows.
+    + A given distribution of $n$ tasks on $m$ compute nodes/machines.
+    + If the execution happens expectedly, total load per node is similar like the left figure shows.
+    + If the execution happens unexpectedly (e.g., wrong performance model for unexpected task distribution before the execution), load per tasks per process might be different. The total load among nodes is unbalanced like the right figure shows.
 
 ### Objective
 
 * Migrate tasks to balance the load
-* How many tasks should be migrated? From which process to which process?
+* How many tasks should be migrated? From which process/node to which process/node?
 
 ### Approaches
 
-![Figure 2](./docs/task_stealing_vs_task_offloading.png)
+![Figure 2](./docs/figures/task_stealing_vs_task_offloading.png)
 
 *Figure 2. Task stealing and task offloading approach.*
 
@@ -37,7 +37,7 @@ Load rebalancing problem and quantum approximate optimization approach
     + Task stealing (work stealing) without prior knowledge about load values/the length of tasks. During execution, when the queue of a process is empty, it starts asking to steal the tasks from the other processes, as shown in Figure 2 (A).
     + Reactive task offloading without prior knowledge about load values/the length of tasks. During execution, each process dedicates a thread for checking queue status continuously and offloading tasks reactively if it detects load imbalance based on the queue status at a time, as shown in Figure 2 (B).
 
-![Figure 3](./docs/hybrid_load_rebalancing.png)
+![Figure 3](./docs/figures/hybrid_load_rebalancing.png)
 
 *Figure 3. A hybrid approach with prior knowledge based on load predicted values at runtime.*
 
@@ -48,10 +48,15 @@ Load rebalancing problem and quantum approximate optimization approach
 
 ### Motivation
 
-* From the view of optimization, load rebalancing problem can be considered as an optimization problem [SPAA-03].
+* Load rebalancing problem can be considered as an optimization problem [SPAA-03].
 
 * Compared to the classical algorithms, how this problem can be formulated and solved in quantum computing?
 
+### TODOs
+
+* Refactor the repo
+* Prepare some tests with simulator and realistic experiments
+* Preapre a draft version for the paper
 
 <!--     
 
