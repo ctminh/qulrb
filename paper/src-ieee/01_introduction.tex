@@ -1,0 +1,5 @@
+%!TEX root = main.tex
+
+\section{Introduction} \label{sec:intro}
+
+Task-based or task-graph programming models have been used since the early computers. However, the idea was applied for the whole jobs running in a system rather than decomposing into small tasks of a single application. Recently, compared to shared-memory parallel programming and message-passing interface, they are sometimes tedious and difficult in dealing with concurrency issues. While task-based parallel programming ideas are established on a higher abstraction, the runtimes combine multiprocessing and multithreading. This means in the scope of node-level we deploy multithreading for parallelism (shared-memory). Over nodes, multiprocessing is used to communicate in distributed memory. Furthermore, this programming model is towards abstracting parallel application into tasks, while parallelism does not need much intervention by developers. We need to determine what is a task, then the task-based library would control the rest involved between scheduling and parallelizing of tasks.
