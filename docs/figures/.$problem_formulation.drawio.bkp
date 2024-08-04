@@ -1,4 +1,4 @@
-<mxfile host="Electron" modified="2024-07-25T11:10:32.835Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.6.4 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="fRveUe46v7OIZSsCp38d" version="24.6.4" type="device">
+<mxfile host="Electron" modified="2024-07-25T09:48:35.006Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.6.4 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="XreZ_tqhYjsNH2JhqtBT" version="24.6.4" type="device">
   <diagram name="Page-1" id="OCD1pQ2lFyb5-pAs6mBr">
     <mxGraphModel dx="1114" dy="726" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="1" shadow="0">
       <root>
@@ -189,9 +189,6 @@
             <mxPoint x="685" y="270.99999999999994" as="sourcePoint" />
             <mxPoint x="685" y="73.00000000000003" as="targetPoint" />
           </mxGeometry>
-        </mxCell>
-        <mxCell id="ZXDkgPeH5zvvgvBtXDFX-1" value="- solution: which P to which P, how many tasks&lt;div&gt;- compare:&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;+ the balance ratio from the results, theoretically&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;+ overhead: runtime of algorithms, complexity, ...&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;+ classical algs&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;+ quantum approach run on DWAVE&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;+ quantum approach run on LRZ devices?&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;()&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;+ apply the output to the use-case and run on simulator&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;+ apply&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;apply the output to the use-case and run on real systems&lt;/span&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="280" y="330" width="490" height="170" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
