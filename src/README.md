@@ -1,20 +1,4 @@
-## Comparison in Python
+## Python implementaion of different rebalancing algorithms
 
-| Algorithm/Solver | Complexity | Runtime | Speedup | Makespan |
-|------------------|------------|---------|---------|----------|
-| proact_offload1  |            |         |         |          |
-| proact_offload2  |            |         |         |          |
-| greedy           |            |         |         |          |
-| multifit         |            |         |         |          |
-| Karmarkar-Karp   |            |         |         |          |
-
-
-## Comparison in C++
-
-| Algorithm/Solver | Complexity | Runtime | Speedup | Makespan |
-|------------------|------------|---------|---------|----------|
-| proact_offload1  |            |         |         |          |
-| proact_offload2  |            |         |         |          |
-| greedy           |            |         |         |          |
-| multifit         |            |         |         |          |
-| Karmarkar-Karp   |            |         |         |          |
+* classical_algorithms/: include classical rebalancing algorithms
+* hybrid_quantum_algorithms/: include a transformation of LRP into quadratic unconstrained binary optimization
