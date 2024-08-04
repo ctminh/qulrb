@@ -1,0 +1,9 @@
+# ds_store files
+.DS_Store
+
+# refs fold
+refs/
+
+# py_cache and checkpoints folders
+.ipynb_checkpoints/
+__pycache__/
