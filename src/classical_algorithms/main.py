@@ -81,13 +81,21 @@ if __name__ == "__main__":
     parser.add_argument("-out", "--outputdir", type=str,
                         help="Output directory")
     parser.add_argument("-imb", "--imbcase", type=int,
-                        default=1,
+                        default=0,
                         help="Imbalance ratio testcase")
+    parser.add_argument("-npr", "--numprocs", type=int,
+                        default=8,
+                        help="Number of involved processes")
+    parser.add_argument("-nta", "--numtasks", type=int,
+                        default=8,
+                        help="Number of tasks per process")
     args = vars(parser.parse_args())
     algorithm = args["algorithm"]
     input_file = args["inputfile"]
     output_dir = args["outputdir"]
     imb_case = args["imbcase"]
+    num_procs = args["numprocs"]
+    num_tasks = args["numtasks"]
 
     # read input file
     df_input = pd.read_csv(input_file)
@@ -142,7 +150,9 @@ if __name__ == "__main__":
     print('  + Min: {:.3f}'.format(min_exe))
     print('-------------------------------------------\n')
     
-    output_filename = output_dir + 'output_' + algorithm + '_lrp_imb_case' + str(imb_case) + '.csv'
+    # output_filename = output_dir + 'output_' + algorithm + '_lrp_imb_case' + str(imb_case) + '.csv'
+    # output_filename = output_dir + 'output_' + algorithm + '_lrp_' + str(num_procs) + 'nodes' + '.csv'
+    output_filename = output_dir + 'output_' + algorithm + '_lrp_' + str(num_procs) + 'nodes_' + str(num_tasks) + 'tasks' + '.csv'
     table_task_migration.to_csv(output_filename, index=False)
     print('Write output to file: ', output_filename)
     print('-------------------------------------------\n')
