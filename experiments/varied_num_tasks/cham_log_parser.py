@@ -193,9 +193,10 @@ if __name__ == "__main__":
 
     # get the chameleon-stat input file
     inputfile = sys.argv[1]
-    imb_case  = 0
+    num_procs = 8
+    num_tasks = 8
     if len(sys.argv) > 2:
-        imb_case = int(sys.argv[2])
+        num_tasks = int(sys.argv[2])
 
     # read the inputfile
     dataset = parse_statslog_results(inputfile)
@@ -267,9 +268,9 @@ if __name__ == "__main__":
     df_num_local_tasks = generate_df_by_iter(df_header, dataset, 10, num_iters)
     print(df_num_local_tasks)
 
-    print(" + Write dataframe to csv: ./dataframe/df_num_local_tasks.csv")
-    df_num_local_tasks.to_csv('./dataframe/df_num_local_tasks.csv', index=False)
-    print("---------------------------\n")
+    # print(" + Write dataframe to csv: ./dataframe/df_num_local_tasks.csv")
+    # df_num_local_tasks.to_csv('./dataframe/df_num_local_tasks.csv', index=False)
+    # print("---------------------------\n")
 
     print("---------------------------")
     print(" + Num. remote tasks:")
@@ -277,9 +278,9 @@ if __name__ == "__main__":
     df_num_remote_tasks = generate_df_by_iter(df_header, dataset, 12, num_iters)
     print(df_num_remote_tasks)
 
-    print(" + Write dataframe to csv: ./dataframe/df_num_remote_tasks.csv")
-    df_num_remote_tasks.to_csv('./dataframe/df_num_remote_tasks.csv', index=False)
-    print("---------------------------\n")
+    # print(" + Write dataframe to csv: ./dataframe/df_num_remote_tasks.csv")
+    # df_num_remote_tasks.to_csv('./dataframe/df_num_remote_tasks.csv', index=False)
+    # print("---------------------------\n")
 
     print("---------------------------")
     print(" + Num. local load:")
@@ -287,9 +288,9 @@ if __name__ == "__main__":
     df_num_local_load = generate_df_by_iter(df_header, dataset, 9, num_iters)
     print(df_num_local_load)
 
-    print(" + Write dataframe to csv: ./dataframe/df_local_load.csv")
-    df_num_local_load.to_csv('./dataframe/df_local_load.csv', index=False)
-    print("---------------------------\n")
+    # print(" + Write dataframe to csv: ./dataframe/df_local_load.csv")
+    # df_num_local_load.to_csv('./dataframe/df_local_load.csv', index=False)
+    # print("---------------------------\n")
 
     print("---------------------------")
     print(" + Num. remote load:")
@@ -297,9 +298,9 @@ if __name__ == "__main__":
     df_num_remote_load = generate_df_by_iter(df_header, dataset, 11, num_iters)
     print(df_num_remote_load)
 
-    print(" + Write dataframe to csv: ./dataframe/df_remote_load.csv")
-    df_num_remote_load.to_csv('./dataframe/df_remote_load.csv', index=False)
-    print("---------------------------\n")
+    # print(" + Write dataframe to csv: ./dataframe/df_remote_load.csv")
+    # df_num_remote_load.to_csv('./dataframe/df_remote_load.csv', index=False)
+    # print("---------------------------\n")
 
     # print("\n--------------------------------------------------------")
     # print("Dataframe for transfer throughput (MB/s)")
@@ -342,7 +343,7 @@ if __name__ == "__main__":
     df_input_lrp = pd.DataFrame(table_data, columns=table_header)
     print(df_input_lrp)
     # write to csv input file
-    print(" + Write table for LRP input to csv: ./input_lrp/input_table_varied_imbs_case" + str(imb_case) + ".csv")
-    df_input_lrp.to_csv('./input_lrp/input_table_varied_imbs_case' + str(imb_case) + '.csv', index=False)
+    print(" + Write table for LRP input to csv: ./input_lrp/input_table_" + str(num_procs) + "nodes_" + str(num_tasks) + "tasks" + ".csv")
+    df_input_lrp.to_csv('./input_lrp/input_table_' + str(num_procs) + 'nodes_' + str(num_tasks) + 'tasks' + '.csv', index=False)
     print("---------------------------\n")
 
