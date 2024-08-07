@@ -1,4 +1,4 @@
-num_tasks,greedy,kk,proact2,gurobi,qubo_cqm_k1,qubo_cqm_k2
+num_tasks,greedy,kk,proactlb,gurobi,qubo_cqm_k1,qubo_cqm_k2
 8,0.0,0.0,0.13766,0.0,0.0,0.0
 16,0.0,0.0,0.1025,0.0,0.0,0.0
 32,0.0,0.0,0.03345,0.0,0.0,0.0

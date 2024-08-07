@@ -20,7 +20,7 @@ if __name__ == "__main__":
     list_input_files = os.listdir(input_folder)
     list_output_files = os.listdir(output_folder)
 
-    list_algorithms = ['greedy', 'kk', 'proact2', 'gurobi', 'qubo_cqm_k1', 'qubo_cqm_k2']
+    list_algorithms = ['greedy', 'kk', 'proactlb', 'gurobi', 'qubo_cqm_k1', 'qubo_cqm_k2']
     num_procs = 8
     num_tasks = [8, 16, 32, 64, 128, 256, 512, 1024, 2048]
 

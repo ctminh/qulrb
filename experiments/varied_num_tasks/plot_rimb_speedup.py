@@ -37,23 +37,24 @@ if __name__ == "__main__":
     alphas = [0.3, 1.0, 1.0, 0.3, 1.0, 1.0, 1.0, 1.0]
     legend_size = 9
     ticklabel_size = 10
-    legend_labels = ['greedy', 'kk', 'proactlb', 'gurobi', 'qubo+cqm', 'qubo+qaoa']
+    legend_labels = ['greedy', 'kk', 'proactlb', 'gurobi', 'qubo_cqm_k1', 'qubo_cqm_k2']
 
     # ---------------------------------------------------------
     # 1. The imb-ratio chart
     # ---------------------------------------------------------
     ax1.set_title('Imbalance ratio after rebalancing')
-    ax1_ticks = ['Imb.0', 'Imb.1', 'Imb.2', 'Imb.3', 'Imb.4']
+    ax1_ticks = ['8', '16', '32', '64', '128', '256', '512', '1024', '2048']
     ax1_indices = np.arange(len(ax1_ticks))
     ax1.plot(ax1_indices, df_imb_ratios['greedy'], label=legend_labels[0], linestyle=lstyles[0], marker=lmarkers[0], color=lcolors[0])
     ax1.plot(ax1_indices, df_imb_ratios['kk'], label=legend_labels[1], linestyle=lstyles[1], marker=lmarkers[1], color=lcolors[1])
     ax1.plot(ax1_indices, df_imb_ratios['proactlb'], label=legend_labels[2], linestyle=lstyles[2], marker=lmarkers[2], color=lcolors[2])
     ax1.plot(ax1_indices, df_imb_ratios['gurobi'], label=legend_labels[3], linestyle=lstyles[3], marker=lmarkers[3], color=lcolors[3])
-    ax1.plot(ax1_indices, df_imb_ratios['qubo_cqm'], label=legend_labels[4], linestyle=lstyles[4], marker=lmarkers[4], color=lcolors[4])
-    ax1.plot(ax1_indices, df_imb_ratios['qubo_qaoa'], label=legend_labels[5], linestyle=lstyles[5], marker=lmarkers[5], color=lcolors[5])
+    ax1.plot(ax1_indices, df_imb_ratios['qubo_cqm_k1'], label=legend_labels[4], linestyle=lstyles[4], marker=lmarkers[4], color=lcolors[4])
+    ax1.plot(ax1_indices, df_imb_ratios['qubo_cqm_k2'], label=legend_labels[5], linestyle=lstyles[5], marker=lmarkers[5], color=lcolors[5])
     ax1.set_xticks(ax1_indices)
     ax1.set_xticklabels(ax1_ticks, fontsize=ticklabel_size)
     ax1.set_ylim(-0.5, 0.5)
+    ax1.set_xlabel("# tasks")
     ax1.set_ylabel("Imbalance")
     ax1.legend(fontsize=legend_size, loc='upper left')
     ax1.grid()
@@ -62,24 +63,25 @@ if __name__ == "__main__":
     # 2. The speedup chart
     # ---------------------------------------------------------
     ax2.set_title('Speedup')
-    ax2_ticks = ['Imb.0', 'Imb.1', 'Imb.2', 'Imb.3', 'Imb.4']
+    ax2_ticks = ['8', '16', '32', '64', '128', '256', '512', '1024', '2048']
     ax2_indices = np.arange(len(ax2_ticks))
     ax2.plot(ax2_indices, df_speedup['greedy'], label=legend_labels[0], linestyle=lstyles[0], marker=lmarkers[0], color=lcolors[0])
     ax2.plot(ax2_indices, df_speedup['kk'], label=legend_labels[1], linestyle=lstyles[1], marker=lmarkers[1], color=lcolors[1])
     ax2.plot(ax2_indices, df_speedup['proactlb'], label=legend_labels[2], linestyle=lstyles[2], marker=lmarkers[2], color=lcolors[2])
     ax2.plot(ax2_indices, df_speedup['gurobi'], label=legend_labels[3], linestyle=lstyles[3], marker=lmarkers[3], color=lcolors[3])
-    ax2.plot(ax2_indices, df_speedup['qubo_cqm'], label=legend_labels[4], linestyle=lstyles[4], marker=lmarkers[4], color=lcolors[4])
-    ax2.plot(ax2_indices, df_speedup['qubo_qaoa'], label=legend_labels[5], linestyle=lstyles[5], marker=lmarkers[5], color=lcolors[5])
+    ax2.plot(ax2_indices, df_speedup['qubo_cqm_k1'], label=legend_labels[4], linestyle=lstyles[4], marker=lmarkers[4], color=lcolors[4])
+    ax2.plot(ax2_indices, df_speedup['qubo_cqm_k2'], label=legend_labels[5], linestyle=lstyles[5], marker=lmarkers[5], color=lcolors[5])
     ax2.set_xticks(ax2_indices)
     ax2.set_xticklabels(ax2_ticks, fontsize=ticklabel_size)
     ax2.set_ylim(0.0, 6.0)
+    ax2.set_xlabel("# tasks")
     ax2.set_ylabel("Speedup")
     ax2.legend(fontsize=legend_size, loc='upper left')
     ax2.grid()
 
     # save the figure
     print("--------------------------------------------------------------------")
-    fig_filename = "./varied_imbs_speedup.pdf"
+    fig_filename = "./varied_numtasks_imbs_speedup.pdf"
     print("Write file to: " + fig_filename)
     plt.savefig(os.path.join("./", fig_filename), bbox_inches='tight')
     print("--------------------------------------------------------------------")

@@ -342,7 +342,7 @@ if __name__ == "__main__":
     df_input_lrp = pd.DataFrame(table_data, columns=table_header)
     print(df_input_lrp)
     # write to csv input file
-    print(" + Write table for LRP input to csv: ./input_lrp/samoa_osc_case_8procss" + ".csv")
-    df_input_lrp.to_csv('./input_lrp/samoa_osc_case_8procss' + '.csv', index=False)
+    print(" + Write table for LRP input to csv: ./input_lrp/samoa_osc_case_32procs" + ".csv")
+    df_input_lrp.to_csv('./input_lrp/samoa_osc_case_32procs' + '.csv', index=False)
     print("---------------------------\n")
 

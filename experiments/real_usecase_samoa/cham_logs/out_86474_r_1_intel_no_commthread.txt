@@ -1,0 +1,263 @@
+Running samoa
+mpirun -np ${SLURM_NTASKS} /dss/dsshome1/lxc0D/ra56kop/experiment-results/cham_samoaaderdgopt_osc/cm2std/build/cde5a8cf -dmax 18 -dmin 18 -coast_height_max -100000 -coast_height_min 100000 -courant 0.05 -dry_dg_guard 0.01 -drytolerance 0.000001 -max_picard_error 10.0d-16 -max_picard_iterations 4 -nmax 50 -sections 16 -output_dir /dss/dsshome1/lxc0D/ra56kop/experiment-results/cham_samoaaderdgopt_osc/cm2std/samoa_output 
+ bnd
+         316         317         318         319         320         321
+         322         323         324         325         326         327
+         328         329         330
+         331         332         333         334         335         336
+         337         338         339         340         341         342
+         343         344         345
+         346         347         348         349         350         351
+         352         353         354         355         356         357
+         358         359         360
+ bnd
+         316         317         318         319         320         321
+         322         323         324         325         326         327
+         328         329         330
+         331         332         333         334         335         336
+         337         338         339         340         341         342
+         343         344         345
+         346         347         348         349         350         351
+         352         353         354         355         356         357
+         358         359         360
+ bnd
+         316         317         318         319         320         321
+         322         323         324         325         326         327
+         328         329         330
+         331         332         333         334         335         336
+         337         338         339         340         341         342
+         343         344         345
+         346         347         348         349         350         351
+         352         353         354         355         356         357
+         358         359         360
+ bnd
+         316         317         318         319         320         321
+         322         323         324         325         326         327
+         328         329         330
+         331         332         333         334         335         336
+         337         338         339         340         341         342
+         343         344         345
+         346         347         348         349         350         351
+         352         353         354         355         356         357
+         358         359         360
+ bnd
+         316         317         318         319         320         321
+         322         323         324         325         326         327
+         328         329         330
+         331         332         333         334         335         336
+         337         338         339         340         341         342
+         343         344         345
+         346         347         348         349         350         351
+         352         353         354         355         356         357
+         358         359         360
+     (r0,t0)  sam(oa)²: Space filling curves and Adaptive Meshes for Oceanic and Other Applications
+ bnd
+         316         317         318         319         320         321
+         322         323         324         325         326         327
+         328         329         330
+         331         332         333         334         335         336
+         337         338         339         340         341         342
+         343         344         345
+         346         347         348         349         350         351
+         352         353         354         355         356         357
+         358         359         360
+ bnd
+         316         317         318         319         320         321
+         322         323         324         325         326         327
+         328         329         330
+         331         332         333         334         335         336
+         337         338         339         340         341         342
+         343         344         345
+         346         347         348         349         350         351
+         352         353         354         355         356         357
+         358         359         360
+     (r0,t0)  Scenario: SWE
+     (r0,t0)  OpenMP: Yes, with tasks, threads: 13, procs: 28
+     (r0,t0)  MPI: Yes, ranks: 8
+     (r0,t0)  ASAGI: No
+     (r0,t0)  Debug Level: 1
+     (r0,t0)  Assertions: No
+     (r0,t0)  Precision: Double
+     (r0,t0)  Compiler: Intel
+     (r0,t0)  Sections per thread: 16
+     (r0,t0)  Adaptivity: min depth: 18, max depth: 18, start depth: 0
+     (r0,t0)  SWE: Patches: Yes, order: 15, using patch solver: No
+     (r0,t0)  Load balancing: timed load estimate:  No, split sections:  No, serial:  No
+     (r0,t0)  Load balancing: cell weight: 1.00, boundary weight: .00
+     (r0,t0)  Scenario: max time steps: 50, max time:  3.60E+03, output step: -1.00E+00
+     (r0,t0)  Scenario: output directory: /dss/dsshome1/lxc0D/ra56kop/experiment-results/cham_samoaaderdgopt_osc/cm2std/samoa_output
+     (r0,t0)  Scenario: courant number: .050
+     (r0,t0)  Scenario: Flux solver: Augmented Riemann
+     (r0,t0)  Scenario: Input data refinement: Sample
+     (r0,t0)  SWE: dry_tolerance:  1.0E-06
+     (r0,t0) 
+ bnd
+         316         317         318         319         320         321
+         322         323         324         325         326         327
+         328         329         330
+         331         332         333         334         335         336
+         337         338         339         340         341         342
+         343         344         345
+         346         347         348         349         350         351
+         352         353         354         355         356         357
+         358         359         360
+     (r0,t0)  SWE: computational domain: [-2.00, 2.00] x [-2.00, 2.00]
+     (r1,t0)  SWE: computational domain: [-2.00, 2.00] x [-2.00, 2.00]
+     (r0,t0)  SWE: setting initial values and a priori refinement..
+     (r0,t0)  
+     (r5,t0)  SWE: computational domain: [-2.00, 2.00] x [-2.00, 2.00]
+     (r6,t0)  SWE: computational domain: [-2.00, 2.00] x [-2.00, 2.00]
+     (r2,t0)  SWE: computational domain: [-2.00, 2.00] x [-2.00, 2.00]
+     (r7,t0)  SWE: computational domain: [-2.00, 2.00] x [-2.00, 2.00]
+     (r3,t0)  SWE: computational domain: [-2.00, 2.00] x [-2.00, 2.00]
+     (r4,t0)  SWE: computational domain: [-2.00, 2.00] x [-2.00, 2.00]
+     (r0,t0)  SWE: 0 adaptions, 2 patches = 450 cells
+     (r0,t0)  SWE: 1 adaptions, 4 patches = 900 cells
+     (r0,t0)  SWE: 2 adaptions, 8 patches = 1800 cells
+     (r0,t0)  SWE: 3 adaptions, 16 patches = 3600 cells
+     (r0,t0)  SWE: 4 adaptions, 32 patches = 7200 cells
+     (r0,t0)  SWE: 5 adaptions, 64 patches = 14400 cells
+     (r0,t0)  SWE: 6 adaptions, 128 patches = 28800 cells
+     (r0,t0)  SWE: 7 adaptions, 256 patches = 57600 cells
+     (r0,t0)  SWE: 8 adaptions, 512 patches = 115200 cells
+     (r0,t0)  SWE: 9 adaptions, 1024 patches = 230400 cells
+     (r0,t0)  SWE: 10 adaptions, 2048 patches = 460800 cells
+     (r0,t0)  SWE: 11 adaptions, 4096 patches = 921600 cells
+     (r0,t0)  SWE: 12 adaptions, 8192 patches = 1843200 cells
+     (r0,t0)  SWE: 13 adaptions, 16384 patches = 3686400 cells
+     (r0,t0)  SWE: 14 adaptions, 32768 patches = 7372800 cells
+     (r0,t0)  SWE: 15 adaptions, 65536 patches = 14745600 cells
+     (r0,t0)  SWE: 16 adaptions, 131072 patches = 29491200 cells
+     (r0,t0)  SWE: 17 adaptions, 262144 patches = 58982400 cells
+     (r0,t0)  SWE: 18 adaptions, 524288 patches = 117964800 cells
+     (r0,t0)  SWE: done.
+     (r0,t0)  
+     (r0,t0)   Info:
+     (r0,t0) 
+     (r0,t0)   Cells                         :        524288
+     (r0,t0)   Crossed edges                 :        522624
+     (r0,t0)   Inner color edges             :        218240
+     (r0,t0)   Boundary edges (red/green)    :         55382         35754
+     (r0,t0)   Stack edges (red/green)       :            22            15
+     (r0,t0)   Inner nodes                   :             0
+     (r0,t0)   Boundary nodes (red/green)    :         53718         37418
+     (r0,t0)   Stack nodes (red/green)       :            22            15
+     (r0,t0)   Comms (red/green)             :         10750         11760
+     (r0,t0)   Partition quality (1.0: perfect, infinity: worst): 17.9054
+     (r0,t0)  
+     (r0,t0)  
+     (r0,t0)  Phase statistics:
+     (r0,t0)  
+     (r0,t0)  Init:                           #travs: 13696 time: 592.3181 s (comp: 540.2067 s (pre: .0339 s inner: 540.1519 s post: .0210 s) asagi: .0000 s sync: 3227881594427.2510 s barr: 1.5570 s packing: .0000 s) ET: .0018 M/s  MT: .0196 GB/s
+     (r0,t0)  Displace:                       #travs: 0 time: .0000 s (comp: .0000 s (pre: .0000 s inner: .0000 s post: .0000 s) asagi: .0000 s sync: .0000 s barr: .0000 s packing: .0000 s) ET: -1.0000 M/s  MT: -1.0000 GB/s
+     (r0,t0)  Time steps solver:              #travs: 0 time: .0000 s (comp: .0000 s (pre: .0000 s inner: .0000 s post: .0000 s) asagi: .0000 s sync: .0000 s barr: .0000 s packing: .0000 s) ET: -1.0000 M/s  MT: -1.0000 GB/s
+     (r0,t0) Predictor and Adaptions:         #travs: 13695 time: 1438.8186 s (comp: 329.9876 s (pre: .0005 s inner: 329.9849 s post: .0022 s) asagi: .0000 s sync: 2.4584 s barr: .0154 s packing: .0000 s update distances: 798.7082 s update neighbors: 305.8704 s) integrity: 2.2674 s load balancing: 12.3178 s (de)allocation: 14.1333 s ET: .0007 M/s  MT: .0081 GB/s
+     (r0,t0)  Grid:                           #travs: 27392 time: 2031.1687 s (comp: 870.1949 s (pre: .0344 s inner: 870.1373 s post: .0232 s) asagi: .0000 s sync: 3397770099164.6533 s barr: 1.5775 s packing: .0000 s update distances: .0000 s update neighbors: .0000 s) integrity: .0000 s load balancing: .0000 s (de)allocation: .0000 s ET: .0010 M/s  MT: .0114 GB/s
+     (r0,t0)  Element throughput:                  23.5734 M/s
+     (r0,t0)  Memory throughput:                  261.4188 GB/s
+     (r0,t0)  Cell update throughput solver:        0.0000 M/s
+     (r0,t0)  Total cell updates solver:            0.0000 millions
+     (r0,t0)  Flux solver throughput solver:        0.0000 M/s
+     (r0,t0)  Asagi time:                           0.0000 s
+     (r0,t0)  Phase time:                          20.0166 s
+     (r0,t0)  
+     (r0,t0) traversal; travs; pred; time; comp; pre; inner; post; asagi; sync; barr
+     (r0,t0) adaption; 13695;0;1438.8186;329.9876;.0005;329.9849;.0022;.0000;2.4584;.0154
+     (r0,t0) predictor; 0;0;.0000;.0000;.0000;.0000;.0000;.0000;.0000;.0000
+     (r0,t0) solver; 0;0;.0000;.0000;.0000;.0000;.0000;.0000;.0000;.0000
+     (r0,t0) ranks; threads; procs; dmin; dmax; order; opt
+     (r0,t0) 8;13;28;18;18;7;False
+     (r0,t0)  SWE: running time steps..
+     (r0,t0)  
+     (r0,t0)  SWE: time step: 1, sim. time: 563ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 2, sim. time: 15µs 6ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 3, sim. time: 29µs 448ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 4, sim. time: 43µs 890ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 5, sim. time: 58µs 332ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 6, sim. time: 72µs 774ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 7, sim. time: 87µs 216ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 8, sim. time: 101µs 658ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 9, sim. time: 116µs 100ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 10, sim. time: 130µs 542ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 11, sim. time: 144µs 984ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 12, sim. time: 159µs 426ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 13, sim. time: 173µs 869ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 14, sim. time: 188µs 311ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 15, sim. time: 202µs 753ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 16, sim. time: 217µs 195ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 17, sim. time: 231µs 637ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 18, sim. time: 246µs 79ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 19, sim. time: 260µs 521ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 20, sim. time: 274µs 963ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 21, sim. time: 289µs 405ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 22, sim. time: 303µs 847ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 23, sim. time: 318µs 289ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 24, sim. time: 332µs 731ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 25, sim. time: 347µs 174ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 26, sim. time: 361µs 616ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 27, sim. time: 376µs 58ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 28, sim. time: 390µs 500ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 29, sim. time: 404µs 942ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 30, sim. time: 419µs 384ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 31, sim. time: 433µs 826ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 32, sim. time: 448µs 268ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 33, sim. time: 462µs 710ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 34, sim. time: 477µs 152ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 35, sim. time: 491µs 594ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 36, sim. time: 506µs 36ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 37, sim. time: 520µs 479ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 38, sim. time: 534µs 921ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 39, sim. time: 549µs 363ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 40, sim. time: 563µs 805ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 41, sim. time: 578µs 247ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 42, sim. time: 592µs 689ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 43, sim. time: 607µs 131ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 44, sim. time: 621µs 573ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 45, sim. time: 636µs 15ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 46, sim. time: 650µs 457ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 47, sim. time: 664µs 899ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 48, sim. time: 679µs 342ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 49, sim. time: 693µs 784ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  SWE: time step: 50, sim. time: 708µs 226ns, dt: 14µs 442ns, patches : 524288 cells: 117964800
+     (r0,t0)  
+     (r0,t0)  Phase statistics:
+     (r0,t0)  
+     (r0,t0)  Init:                           #travs: 0 time: .0000 s (comp: .0000 s (pre: .0000 s inner: .0000 s post: .0000 s) asagi: .0000 s sync: .0000 s barr: .0000 s packing: .0000 s) ET: -1.0000 M/s  MT: -1.0000 GB/s
+     (r0,t0)  Displace:                       #travs: 0 time: .0000 s (comp: .0000 s (pre: .0000 s inner: .0000 s post: .0000 s) asagi: .0000 s sync: .0000 s barr: .0000 s packing: .0000 s) ET: -1.0000 M/s  MT: -1.0000 GB/s
+     (r0,t0)  Time steps solver:              #travs: 83200 time: 2936.9713 s (comp: 1395.0225 s (pre: 5.3740 s inner: 1389.5033 s post: .1452 s) asagi: .0000 s sync: 11.9626 s barr: .1779 s packing: .0907 s) ET: .0089 M/s  MT: .0984 GB/s
+     (r0,t0) Predictor and Adaptions:         #travs: 83200 time: 381.5724 s (comp: 305.4693 s (pre: .0030 s inner: 305.4594 s post: .0070 s) asagi: .0000 s sync: 9.0752 s barr: .0443 s packing: .0000 s update distances: 18.9888 s update neighbors: 45.0291 s) integrity: 28.9094 s load balancing: 1.3400 s (de)allocation: 15.4702 s ET: .0687 M/s  MT: .7576 GB/s
+     (r0,t0)  Grid:                           #travs: 249600 time: 15366.4111 s (comp: 7057.6462 s (pre: 5.5880 s inner: 7051.7614 s post: .2967 s) asagi: .0000 s sync: 34.8474 s barr: .2233 s packing: .1538 s update distances: .0000 s update neighbors: .0000 s) integrity: .0000 s load balancing: .0000 s (de)allocation: .0000 s ET: .0051 M/s  MT: .0564 GB/s
+     (r0,t0)  Element throughput:                 119.3467 M/s
+     (r0,t0)  Memory throughput:                 1316.0345 GB/s
+     (r0,t0)  Cell update throughput solver:       39.7822 M/s
+     (r0,t0)  Total cell updates solver:         5898.2400 millions
+     (r0,t0)  Flux solver throughput solver:      101.0717 M/s
+     (r0,t0)  Asagi time:                           0.0000 s
+     (r0,t0)  Phase time:                         148.2632 s
+     (r0,t0)  
+     (r0,t0) traversal; travs; pred; time; comp; pre; inner; post; asagi; sync; barr
+     (r0,t0) adaption; 83200;0;381.5724;305.4693;.0030;305.4594;.0070;.0000;9.0752;.0443
+     (r0,t0) predictor; 83200;18359624;12047.8674;5357.1544;.2111;5356.7987;.1445;.0000;13.8096;.0011
+     (r0,t0) solver; 83200;0;2936.9713;1395.0225;5.3740;1389.5033;.1452;.0000;11.9626;.1779
+     (r0,t0) ranks; threads; procs; dmin; dmax; order; opt
+     (r0,t0) 8;13;28;18;18;7;False
+     (r0,t0) cells; edges; nodes
+     (r0,t0)         524288;        832512;         92160
+     (r0,t0)  SWE: done.
+     (r0,t0) 
+     (r0,t0)   Cells: avg: 5041 max: 5042
+     (r0,t0) 
+     (r0,t0)   Info:
+     (r0,t0) 
+     (r0,t0)   Cells                         :        524288
+     (r0,t0)   Crossed edges                 :        522624
+     (r0,t0)   Inner color edges             :        217728
+     (r0,t0)   Boundary edges (red/green)    :         56406         35754
+     (r0,t0)   Stack edges (red/green)       :            22            15
+     (r0,t0)   Inner nodes                   :             0
+     (r0,t0)   Boundary nodes (red/green)    :         54742         37418
+     (r0,t0)   Stack nodes (red/green)       :            22            15
+     (r0,t0)   Comms (red/green)             :         10750         11760
+     (r0,t0)   Partition quality (1.0: perfect, infinity: worst): 18.1066
+     (r0,t0)  
+Done
