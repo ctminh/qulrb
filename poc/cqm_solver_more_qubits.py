@@ -6,6 +6,7 @@ from dimod.sym import Sense
 from dwave.system import LeapHybridCQMSampler
 import csv
 
+
 def read_input_csv(path: str, index_col : str | Literal[False] | None = None) -> pd.DataFrame:
     return pd.read_csv(path, index_col=index_col)
 
@@ -61,7 +62,6 @@ class LoadRebalancingProblem:
                         for p_to_id, p_to in enumerate(self.data.processes)
                         for p_from_id, p_from in enumerate(self.data.processes)
                         for coef_id, coef in enumerate(self.coefficients)
-                        if p_from_id != p_to_id
                     ]
         
     def get_variable_mapping(self):
@@ -85,24 +85,11 @@ class LoadRebalancingProblem:
             relocated_terms = 0
             for p_from_id, p_from in enumerate(self.data.processes):
                 for coefficient_id, coefficient in enumerate(self.coefficients):
-                    if p_to!=p_from:
-                        relocated_terms += (self.variables[self.variable_mapping[(p_to, p_from, coefficient_id)]]  
-                                            * coefficient
-                                            * self.data.input_df.loc[p_from, "w"])
+                    relocated_terms += (self.variables[self.variable_mapping[(p_to, p_from, coefficient_id)]]  
+                                        * coefficient
+                                        * self.data.input_df.loc[p_from, "w"])
             bqm_by_process[p_to_id] = relocated_terms
         
-        # 3.2. Add the second term
-        # now we want to have the remainder of the jobs to be subtracted for the same variable
-        for p_to_id, p_to in enumerate(self.data.processes):
-            not_relocated_terms = self.data.num_of_tasks_per_process
-            for p_from_id, p_from in enumerate(self.data.processes):
-                for coefficient_id, coefficient in enumerate(self.coefficients):
-                    if p_to_id != p_from_id:
-                        not_relocated_terms -= (coefficient 
-                                                * self.variables[self.variable_mapping[p_from, p_to, coefficient_id]]) # this is dangerous, from->to
-            not_relocated_terms *= self.data.input_df.loc[p_to, "w"]
-            
-            bqm_by_process[p_to_id] += not_relocated_terms
         
         # TODO merge steps 3.1 and 3.2
         
@@ -112,6 +99,7 @@ class LoadRebalancingProblem:
         for _, entry in bqm_by_process.items():
             objective_function += (entry - self.data.avg_load)**2
                 
+        
         # 3.3. Add the objective function to the model
         self.model.set_objective(objective_function)
         
@@ -121,37 +109,46 @@ class LoadRebalancingProblem:
         for p_to_id, p_to in enumerate(self.data.processes):
             for p_from_id, p_from in enumerate(self.data.processes):
                 for coefficient_id, coefficient in enumerate(self.coefficients):
-                    if p_to != p_from:
-                        constraint_all_tasks_assigned[p_to_id] += (coefficient 
+                    
+                    constraint_all_tasks_assigned[p_to_id] += (coefficient 
                                                                    * self.variables[self.variable_mapping[p_from, p_to, coefficient_id]])
                         
         for constraint in constraint_all_tasks_assigned:
-            self.model.add_constraint(constraint, "<=", self.data.num_of_tasks_per_process)
+            self.model.add_constraint(constraint, "==", self.data.num_of_tasks_per_process)
             
         # 4.2. New load of each process should not exceed the maximum load before rebalancing
         for _, entry in bqm_by_process.items():
             self.model.add_constraint(entry, "<=", self.data.max_load)
         
         # 4.3
-        self.model.add_constraint(sum(constraint_all_tasks_assigned), "<=", self.max_num_migrated_tasks)
+        constraint_not_too_many_moved = [0] * self.data.num_of_processes
+        for p_to_id, p_to in enumerate(self.data.processes):
+            for p_from_id, p_from in enumerate(self.data.processes):
+                for coefficient_id, coefficient in enumerate(self.coefficients):
+                    if p_to != p_from:
+                        constraint_not_too_many_moved[p_to_id] += (coefficient 
+                                                                   * self.variables[self.variable_mapping[p_from, p_to, coefficient_id]])
+            
+        self.model.add_constraint(sum(constraint_not_too_many_moved), "<=", self.max_num_migrated_tasks)
+        
         
     # TODO - this is a bit of a mess, refactor later
     def solve_and_save(self):
+        # TODO 0
         my_time_limit = 5.0
         sampler = LeapHybridCQMSampler()
-
-        raw_sampleset = sampler.sample_cqm(self.model, time_limit=my_time_limit)
         
         # raw_sampleset = sampler.sample_cqm(self.model)
-                
+        raw_sampleset = sampler.sample_cqm(self.model, time_limit=my_time_limit)
+        
         aggregated_results = raw_sampleset.aggregate()
         
         feasible_sampleset = aggregated_results.filter(lambda d: d.is_feasible)
         
         solutions = feasible_sampleset.lowest()
         solutions_df = solutions.to_pandas_dataframe(sample_column=True) # TODO this for sure can be made more efficient
-        
-        solutions_df.to_csv(f'new_outputs/raw_cqm_correct/{self.output_path}_experimentid_{self.experiment_id}.csv')
+                
+        solutions_df.to_csv(f'more_qubits_new_outputs/raw_cqm_correct/{self.output_path}_experimentid_{self.experiment_id}.csv')
         
         result_id = 0
         for _, row in solutions_df.iterrows():
@@ -165,15 +162,13 @@ class LoadRebalancingProblem:
             for result, value in results.items():
                 p_to, p_from, p_id = result
                 output_df.loc[p_to, p_from] += value * self.coefficients[int(p_id)]
-                
-            output_df["num_remote"] = output_df.loc[self.data.processes, self.data.processes].sum(axis=1)
             
-            sum_per_column = output_df.loc[self.data.processes, self.data.processes].sum(axis=0)
-            for process in self.data.processes: # TODO this for sure can be simplified in Pandas
-                output_df.loc[process, process] = self.data.num_of_tasks_per_process - sum_per_column[process]
-                output_df.loc[process, "num_local"] = self.data.num_of_tasks_per_process - sum_per_column[process]
-        
-            output_df["num_total"] = output_df["num_local"] + output_df["num_remote"]
+
+            output_df["num_total"] = output_df.loc[self.data.processes, self.data.processes].sum(axis=1)
+            
+            output_df["num_local"] = output_df.index.map(lambda process: output_df.loc[process, process])
+            
+            output_df["num_remote"] = output_df["num_total"] - output_df["num_local"]
         
             assert output_df["num_remote"].sum() <= self.max_num_migrated_tasks # this is a sanity check
             assert output_df['num_total'].sum() == self.data.num_of_tasks
@@ -184,7 +179,7 @@ class LoadRebalancingProblem:
                     
             output_df = output_df.astype({column: int for column in output_df.columns[:-1]})
                         
-            output_path = f"new_outputs/{self.output_path}_resultid_{result_id}_experimentid_{self.experiment_id}.csv"
+            output_path = f"more_qubits_new_outputs/{self.output_path}_resultid_{result_id}_experimentid_{self.experiment_id}.csv"
             output_df.to_csv(output_path)
             
             solution_metadata = {
@@ -213,12 +208,12 @@ class LoadRebalancingProblem:
                 'charge_time': raw_sampleset.info['charge_time'],
                 'problem_id': raw_sampleset.info['problem_id'],
                 'experiment_id': self.experiment_id,
-                'max_time': 20.0,
+                'max_time': my_time_limit, # TODO
             }
         
             result_id += 1
             
-            output_csv = 'new_outputs/all_experiments.csv'
+            output_csv = 'more_qubits_new_outputs/all_experiments.csv'
 
             # Open the CSV file for appending
             with open(output_csv, mode='a', newline='') as file:
@@ -227,30 +222,33 @@ class LoadRebalancingProblem:
                 # Write the row of values
                 writer.writerow(solution_metadata.values())
 
-            print("Finished")
-
 
 if __name__ == "__main__":
-  
+    
+    # TODO 1
     test_cases = []
-      
-    experiment_id = 12 #TODO remember to check the experiment_id
+
+    # TODO 2
+    experiment_id = 23
+    
     for i, test_case in enumerate(test_cases):
         print(i)
         input_file, k, case = test_case
-
+        
+        # TODO 3
         # output_file = f"1_varied_imbs_speedup/case_{case}_k_{k}" # TODO
         # output_file = f"2_varied_num_procs/nodes_{case}_k_{k}" # TODO
         # output_file = f"3_varied_num_tasks/tasks_{case}_k_{k}" # TODO
         # output_file = f"samoa/case_{case}_k_{k}" # TODO
 
+
         data = LRBData(input_file, index_col="Process")
         lrp = LoadRebalancingProblem(data, k, output_file, experiment_id) #experiment_id
         lrp.create_cqm_model()
         lrp.solve_and_save()
-        
-        print("Less qubits finished")
+        print("More qubits finished")
     
+   
     # test_cases = [
     #     ("../experiments/varied_imb_ratios/input_lrp/input_table_varied_imbs_case0.csv", 2, 0), #0
     #     ("../experiments/varied_imb_ratios/input_lrp/input_table_varied_imbs_case0.csv", 347, 0), #1
@@ -305,7 +303,3 @@ if __name__ == "__main__":
         # ("../experiments/real_usecase_samoa/input_lrp/samoa_osc_case_32procs.csv", 1568, 32),
         # ("../experiments/real_usecase_samoa/input_lrp/samoa_osc_case_32procs.csv", 6447, 32)
     # ]
-   
-
-        
-    
