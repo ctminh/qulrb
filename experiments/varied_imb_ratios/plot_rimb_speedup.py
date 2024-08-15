@@ -23,21 +23,21 @@ if __name__ == "__main__":
     # create figure and axis objects with subplots()
     # set the size, 13 is width, 12 is height
     gs = gridspec.GridSpec(1,2)
-    fig = plt.figure(figsize=(11,5))
+    fig = plt.figure(figsize=(10,4))
     ax1 = plt.subplot(gs[0,0])
     ax2 = plt.subplot(gs[0,1])
     
     # ---------------------------------------------------------
     # Line styles
     # ---------------------------------------------------------
-    lstyles = ['dashed', 'dashed', 'dashed', 'dashed', 'dashed', 'solid', 'solid', 'solid']
+    lstyles = ['dashed', 'dashed', 'dashed', 'solid', 'solid','solid','solid','solid']
     ldashstyles = ['dashed', 'dashed', 'dashed', 'dashed', 'dashed', 'dashed', 'dashed', 'dashed']
     lcolors = ['black', 'blue', 'darkgreen', 'red', 'darkorange', 'purple', 'teal', 'brown']
     lmarkers = ['*', '^', 'o', 's', 'P', 'p', 'd', 'x']
     alphas = [0.3, 1.0, 1.0, 0.3, 1.0, 1.0, 1.0, 1.0]
     legend_size = 9
     ticklabel_size = 10
-    legend_labels = ['greedy', 'kk', 'proactlb', 'gurobi', 'qubo_cqm_k1', 'qubo_cqm_k2']
+    legend_labels = ['greedy', 'kk', 'proactlb', 'q_cqm1_k1', 'q_cqm1_k2', 'q_cqm2_k1', 'q_cqm2_k2']
 
     # ---------------------------------------------------------
     # 1. The imb-ratio chart
@@ -48,12 +48,15 @@ if __name__ == "__main__":
     ax1.plot(ax1_indices, df_imb_ratios['greedy'], label=legend_labels[0], linestyle=lstyles[0], marker=lmarkers[0], color=lcolors[0])
     ax1.plot(ax1_indices, df_imb_ratios['kk'], label=legend_labels[1], linestyle=lstyles[1], marker=lmarkers[1], color=lcolors[1])
     ax1.plot(ax1_indices, df_imb_ratios['proactlb'], label=legend_labels[2], linestyle=lstyles[2], marker=lmarkers[2], color=lcolors[2])
-    ax1.plot(ax1_indices, df_imb_ratios['gurobi'], label=legend_labels[3], linestyle=lstyles[3], marker=lmarkers[3], color=lcolors[3])
-    ax1.plot(ax1_indices, df_imb_ratios['qubo_cqm_k1'], label=legend_labels[4], linestyle=lstyles[4], marker=lmarkers[4], color=lcolors[4])
-    ax1.plot(ax1_indices, df_imb_ratios['qubo_cqm_k2'], label=legend_labels[5], linestyle=lstyles[5], marker=lmarkers[5], color=lcolors[5])
+    # ax1.plot(ax1_indices, df_imb_ratios['gurobi'], label=legend_labels[3], linestyle=lstyles[3], marker=lmarkers[3], color=lcolors[3])
+    ax1.plot(ax1_indices, df_imb_ratios['qubo1_cqm_k1'], label=legend_labels[3], linestyle=lstyles[4], marker=lmarkers[4], color=lcolors[4])
+    ax1.plot(ax1_indices, df_imb_ratios['qubo1_cqm_k2'], label=legend_labels[4], linestyle=lstyles[5], marker=lmarkers[5], color=lcolors[5])
+    ax1.plot(ax1_indices, df_imb_ratios['qubo2_cqm_k1'], label=legend_labels[5], linestyle=lstyles[6], marker=lmarkers[6], color=lcolors[6])
+    ax1.plot(ax1_indices, df_imb_ratios['qubo2_cqm_k2'], label=legend_labels[6], linestyle=lstyles[7], marker=lmarkers[7], color=lcolors[7])
     ax1.set_xticks(ax1_indices)
     ax1.set_xticklabels(ax1_ticks, fontsize=ticklabel_size)
-    ax1.set_ylim(-0.5, 0.5)
+    # ax1.set_ylim(-0.5, 0.5)
+    ax1.set_yscale('log')
     ax1.set_ylabel("Imbalance")
     ax1.legend(fontsize=legend_size, loc='upper left')
     ax1.grid()
@@ -67,9 +70,11 @@ if __name__ == "__main__":
     ax2.plot(ax2_indices, df_speedup['greedy'], label=legend_labels[0], linestyle=lstyles[0], marker=lmarkers[0], color=lcolors[0])
     ax2.plot(ax2_indices, df_speedup['kk'], label=legend_labels[1], linestyle=lstyles[1], marker=lmarkers[1], color=lcolors[1])
     ax2.plot(ax2_indices, df_speedup['proactlb'], label=legend_labels[2], linestyle=lstyles[2], marker=lmarkers[2], color=lcolors[2])
-    ax2.plot(ax2_indices, df_speedup['gurobi'], label=legend_labels[3], linestyle=lstyles[3], marker=lmarkers[3], color=lcolors[3])
-    ax2.plot(ax2_indices, df_speedup['qubo_cqm_k1'], label=legend_labels[4], linestyle=lstyles[4], marker=lmarkers[4], color=lcolors[4])
-    ax2.plot(ax2_indices, df_speedup['qubo_cqm_k2'], label=legend_labels[5], linestyle=lstyles[5], marker=lmarkers[5], color=lcolors[5])
+    # ax2.plot(ax2_indices, df_speedup['gurobi'], label=legend_labels[3], linestyle=lstyles[3], marker=lmarkers[3], color=lcolors[3])
+    ax2.plot(ax2_indices, df_speedup['qubo1_cqm_k1'], label=legend_labels[3], linestyle=lstyles[4], marker=lmarkers[4], color=lcolors[4])
+    ax2.plot(ax2_indices, df_speedup['qubo1_cqm_k2'], label=legend_labels[4], linestyle=lstyles[5], marker=lmarkers[5], color=lcolors[5])
+    ax2.plot(ax2_indices, df_speedup['qubo2_cqm_k1'], label=legend_labels[5], linestyle=lstyles[6], marker=lmarkers[6], color=lcolors[6])
+    ax2.plot(ax2_indices, df_speedup['qubo2_cqm_k2'], label=legend_labels[6], linestyle=lstyles[7], marker=lmarkers[7], color=lcolors[7])
     ax2.set_xticks(ax2_indices)
     ax2.set_xticklabels(ax2_ticks, fontsize=ticklabel_size)
     ax2.set_ylim(0.0, 6.0)
