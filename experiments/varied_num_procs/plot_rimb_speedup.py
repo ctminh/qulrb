@@ -37,7 +37,7 @@ if __name__ == "__main__":
     alphas = [0.3, 1.0, 1.0, 0.3, 1.0, 1.0, 1.0, 1.0]
     legend_size = 9
     ticklabel_size = 10
-    legend_labels = ['greedy', 'kk', 'proactlb', 'q_cqm1_k1', 'q_cqm1_k2', 'q_cqm2_k1', 'q_cqm2_k2']
+    legend_labels = ['Greedy', 'KK', 'ProactLB', 'Q_CQM1_k1', 'Q_CQM1_k2', 'Q_CQM2_k1', 'Q_CQM2_k2']
 
     # ---------------------------------------------------------
     # 1. The imb-ratio chart

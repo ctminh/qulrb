@@ -151,8 +151,8 @@ if __name__ == "__main__":
     print('-------------------------------------------\n')
     
     # output_filename = output_dir + 'output_' + algorithm + '_lrp_imb_case' + str(imb_case) + '.csv'
-    # output_filename = output_dir + 'output_' + algorithm + '_lrp_' + str(num_procs) + 'nodes' + '.csv'
-    output_filename = output_dir + 'output_' + algorithm + '_lrp_' + str(num_procs) + 'nodes_' + str(num_tasks) + 'tasks' + '.csv'
+    output_filename = output_dir + 'output_' + algorithm + '_lrp_' + str(num_procs) + 'nodes' + '.csv'
+    # output_filename = output_dir + 'output_' + algorithm + '_lrp_' + str(num_procs) + 'nodes_' + str(num_tasks) + 'tasks' + '.csv'
     table_task_migration.to_csv(output_filename, index=False)
     print('Write output to file: ', output_filename)
     print('-------------------------------------------\n')
