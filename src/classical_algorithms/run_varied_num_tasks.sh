@@ -1,0 +1,29 @@
+python main.py --algorithm=greedy --numtasks=8 --inputfile=../../experiments/varied_num_tasks/input_lrp/input_table_8nodes_8tasks.csv --outputdir=../../experiments/varied_num_tasks/output_lrp/
+python main.py --algorithm=greedy --numtasks=16 --inputfile=../../experiments/varied_num_tasks/input_lrp/input_table_8nodes_16tasks.csv --outputdir=../../experiments/varied_num_tasks/output_lrp/
+python main.py --algorithm=greedy --numtasks=32 --inputfile=../../experiments/varied_num_tasks/input_lrp/input_table_8nodes_32tasks.csv --outputdir=../../experiments/varied_num_tasks/output_lrp/
+python main.py --algorithm=greedy --numtasks=64 --inputfile=../../experiments/varied_num_tasks/input_lrp/input_table_8nodes_64tasks.csv --outputdir=../../experiments/varied_num_tasks/output_lrp/
+python main.py --algorithm=greedy --numtasks=128 --inputfile=../../experiments/varied_num_tasks/input_lrp/input_table_8nodes_128tasks.csv --outputdir=../../experiments/varied_num_tasks/output_lrp/
+python main.py --algorithm=greedy --numtasks=256 --inputfile=../../experiments/varied_num_tasks/input_lrp/input_table_8nodes_256tasks.csv --outputdir=../../experiments/varied_num_tasks/output_lrp/
+python main.py --algorithm=greedy --numtasks=512 --inputfile=../../experiments/varied_num_tasks/input_lrp/input_table_8nodes_512tasks.csv --outputdir=../../experiments/varied_num_tasks/output_lrp/
+python main.py --algorithm=greedy --numtasks=1024 --inputfile=../../experiments/varied_num_tasks/input_lrp/input_table_8nodes_1024tasks.csv --outputdir=../../experiments/varied_num_tasks/output_lrp/
+python main.py --algorithm=greedy --numtasks=2048 --inputfile=../../experiments/varied_num_tasks/input_lrp/input_table_8nodes_2048tasks.csv --outputdir=../../experiments/varied_num_tasks/output_lrp/
+
+python main.py --algorithm=kk --numtasks=8 --inputfile=../../experiments/varied_num_tasks/input_lrp/input_table_8nodes_8tasks.csv --outputdir=../../experiments/varied_num_tasks/output_lrp/
+python main.py --algorithm=kk --numtasks=16 --inputfile=../../experiments/varied_num_tasks/input_lrp/input_table_8nodes_16tasks.csv --outputdir=../../experiments/varied_num_tasks/output_lrp/
+python main.py --algorithm=kk --numtasks=32 --inputfile=../../experiments/varied_num_tasks/input_lrp/input_table_8nodes_32tasks.csv --outputdir=../../experiments/varied_num_tasks/output_lrp/
+python main.py --algorithm=kk --numtasks=64 --inputfile=../../experiments/varied_num_tasks/input_lrp/input_table_8nodes_64tasks.csv --outputdir=../../experiments/varied_num_tasks/output_lrp/
+python main.py --algorithm=kk --numtasks=128 --inputfile=../../experiments/varied_num_tasks/input_lrp/input_table_8nodes_128tasks.csv --outputdir=../../experiments/varied_num_tasks/output_lrp/
+python main.py --algorithm=kk --numtasks=256 --inputfile=../../experiments/varied_num_tasks/input_lrp/input_table_8nodes_256tasks.csv --outputdir=../../experiments/varied_num_tasks/output_lrp/
+python main.py --algorithm=kk --numtasks=512 --inputfile=../../experiments/varied_num_tasks/input_lrp/input_table_8nodes_512tasks.csv --outputdir=../../experiments/varied_num_tasks/output_lrp/
+python main.py --algorithm=kk --numtasks=1024 --inputfile=../../experiments/varied_num_tasks/input_lrp/input_table_8nodes_1024tasks.csv --outputdir=../../experiments/varied_num_tasks/output_lrp/
+python main.py --algorithm=kk --numtasks=2048 --inputfile=../../experiments/varied_num_tasks/input_lrp/input_table_8nodes_2048tasks.csv --outputdir=../../experiments/varied_num_tasks/output_lrp/
+
+python main.py --algorithm=proact2 --numtasks=8 --inputfile=../../experiments/varied_num_tasks/input_lrp/input_table_8nodes_8tasks.csv --outputdir=../../experiments/varied_num_tasks/output_lrp/
+python main.py --algorithm=proact2 --numtasks=16 --inputfile=../../experiments/varied_num_tasks/input_lrp/input_table_8nodes_16tasks.csv --outputdir=../../experiments/varied_num_tasks/output_lrp/
+python main.py --algorithm=proact2 --numtasks=32 --inputfile=../../experiments/varied_num_tasks/input_lrp/input_table_8nodes_32tasks.csv --outputdir=../../experiments/varied_num_tasks/output_lrp/
+python main.py --algorithm=proact2 --numtasks=64 --inputfile=../../experiments/varied_num_tasks/input_lrp/input_table_8nodes_64tasks.csv --outputdir=../../experiments/varied_num_tasks/output_lrp/
+python main.py --algorithm=proact2 --numtasks=128 --inputfile=../../experiments/varied_num_tasks/input_lrp/input_table_8nodes_128tasks.csv --outputdir=../../experiments/varied_num_tasks/output_lrp/
+python main.py --algorithm=proact2 --numtasks=256 --inputfile=../../experiments/varied_num_tasks/input_lrp/input_table_8nodes_256tasks.csv --outputdir=../../experiments/varied_num_tasks/output_lrp/
+python main.py --algorithm=proact2 --numtasks=512 --inputfile=../../experiments/varied_num_tasks/input_lrp/input_table_8nodes_512tasks.csv --outputdir=../../experiments/varied_num_tasks/output_lrp/
+python main.py --algorithm=proact2 --numtasks=1024 --inputfile=../../experiments/varied_num_tasks/input_lrp/input_table_8nodes_1024tasks.csv --outputdir=../../experiments/varied_num_tasks/output_lrp/
+python main.py --algorithm=proact2 --numtasks=2048 --inputfile=../../experiments/varied_num_tasks/input_lrp/input_table_8nodes_2048tasks.csv --outputdir=../../experiments/varied_num_tasks/output_lrp/

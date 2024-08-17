@@ -10,8 +10,7 @@ from timeit import default_timer as timer
 
 from lrb_greedy import greedy_rebalancing
 from lrb_karmarkar_karp import karmarkar_karp_rebalancing
-from lrb_proact_offload1 import proact1_task_rebalancing
-from lrb_proact_offload2 import proact2_task_rebalancing
+from lrb_proact_offloadlb import proact2_task_rebalancing
 
 # --------------------------------------------------------
 # Task and load configuration
