@@ -52,11 +52,6 @@ Load rebalancing problem and quantum approximate optimization approach
 
 * Compared to the classical algorithms, how this problem can be formulated and solved in quantum computing?
 
-### TODOs
-
-* Refactor the repo
-* Prepare some tests with simulator and realistic experiments
-* Preapre a draft version for the paper
 
 <!--     
 
